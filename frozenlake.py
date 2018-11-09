@@ -1,5 +1,7 @@
 import gym
 import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 env = gym.make('FrozenLake8x8-v0')
 env.render()
 
@@ -29,6 +31,7 @@ for episode in range(episodes):
 
 		new_state, reward, game_over, _ = env.step(action)
 
+
 		Q_Table[state, action] = Q_Table[state, action] + alpha * (reward + gamma * np.max(Q_Table[new_state]) - Q_Table[state, action])
 
 
@@ -36,4 +39,16 @@ for episode in range(episodes):
 		state = new_state
 
 	results.append(all_rewards)
-print(results)
+
+
+game_over = False
+state = env.reset()
+while game_over != True:
+	env.render()
+	action = np.argmax(Q_Table[state])
+	state, reward, game_over, _ = env.step(action)
+
+
+plt.figure(figsize=[9,16])
+plt.plot(pd.Series(results))
+plt.show()
