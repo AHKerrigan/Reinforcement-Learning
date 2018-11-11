@@ -7,11 +7,12 @@ import gym
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import math
 
 def create_model():
 	model = Sequential()
-	model.add(Dense(100, input_dim=64 , activation='relu'))
-	model.add(Dense(100, activation="relu"))
+	model.add(Dense(10, input_dim=64 , activation='relu'))
+	model.add(Dense(10, activation="relu"))
 	model.add(Dense(4))
 	model.compile(loss='mse', optimizer=Adam())
 	return model
@@ -25,10 +26,9 @@ def OH(state_space, x):
 
 env = gym.make('FrozenLake8x8-v0')
 
-episodes = 4000
-gamma = 0.9
-alpha = 0.85
-epsilon = 1/((1/50) + 10)
+episodes = 10000
+gamma = 0.99
+epsilon = 0.1
 reward_count = 0
 model = create_model()
 steps = 100

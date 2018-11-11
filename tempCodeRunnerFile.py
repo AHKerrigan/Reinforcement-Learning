@@ -1,1 +1,1 @@
-1
+kernel_size=(5, 5)
